@@ -1,5 +1,6 @@
 from tkinter import *
-from tkinter import messagebox, filedialog
+from tkinter import messagebox
+from tkinter import filedialog
 
 
 class Koma:
@@ -18,9 +19,11 @@ class Koma:
         self.scroll = Scrollbar(self.master, command= self.textrea.yview())
         self.textrea.configure(yscrollcommand=self.scroll.set)
         self.scroll.pack(side=RIGHT, fill=Y)
+        self.raccourcis()
+
 
     # Methode pour ouvrire document
-    def new_document(self):
+    def new_document(self, *args):
         if len(self.textrea.get(1.0, END+ '-1c')) >0:
             message_save = messagebox.askyesno("Koma", "L'editeur va quitter le document, voulez vous l'enregistrer ? " )
 
@@ -30,7 +33,7 @@ class Koma:
 
 
     #Methode pour ouvrire document
-    def open_document(self):
+    def open_document(self, *args):
         if len(self.textrea.get(1.0, END+ '-1c')) >0:
             message_save = messagebox.askyesno("Koma", "Voulez-vous enregistrer les modifications du document ? " )
 
@@ -62,7 +65,7 @@ class Koma:
 
 
 
-    def save_as(self):
+    def save_as(self, *args):
         try:
             file = filedialog.asksaveasfile(initialdir="/",title="Enregistrer sous", initialfile="Koma",
                                             defaultextension=".txt",
@@ -79,7 +82,7 @@ class Koma:
         except Exception as e:
             messagebox.showerror("Exception", e)
 
-    def save(self):
+    def save(self, *args):
         if self.filename:
             try:
                 content_file = self.textrea.get(1.0, END)
@@ -92,7 +95,7 @@ class Koma:
 
 
     # Methode fermer document
-    def close_document(self):
+    def close_document(self, *args):
         if len(self.textrea.get(1.0, END+ '-1c')) > 0:
             save = messagebox.askyesno("Enrefistrer", "Voulez vous enregistrer votre document ?")
             if save <=0:
@@ -104,22 +107,22 @@ class Koma:
             self.textrea.quit()
 
     #Methode copy
-    def copy(self):
+    def copy(self, *args):
         self.textrea.event_generate("<<Copy>>")
 
     # Methode coller
-    def cut(self):
+    def cut(self, *args):
         self.textrea.event_generate("<<Cut>>")
         # Methode paste
-    def paste(self):
+    def paste(self, *args):
         self.textrea.event_generate("<<Paste>>")
 
-    def selectAll(self):
+    def selectAll(self, *args):
         self.textrea.event_generate("<<SelectAll>>")
 
 
 
-    def add_menu(self):
+    def add_menu(self, *args):
         barMenu = Menu(self.master)
         self.master.config(menu=barMenu)
 
@@ -154,6 +157,15 @@ class Koma:
         # aideMenu.add_command(label="A propos de Koma", command=self.paste)
         # barMenu.add_cascade(label="Aide", menu=aideMenu)
 
+    def raccourcis(self):
+        self.textaera.bind('<Control-n>', self.new_document)
+        self.textaera.bind('<Control-o>', self.open_document)
+        self.textaera.bind('<Control-s>', self.save)
+        self.textaera.bind('<Control-Shift-s>', self.save_as)
+        self.textaera.bind('<Control-c>', self.copy)
+        self.textaera.bind('<Control-x>', self.cut)
+        self.textaera.bind('<Control-v>', self.paste)
+        self.textaera.bind('<Control-a>', self.selectAll)
 
 if __name__ == "__main__":
     master = Tk()
