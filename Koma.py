@@ -158,14 +158,14 @@ class Koma:
         # barMenu.add_cascade(label="Aide", menu=aideMenu)
 
     def raccourcis(self):
-        self.textaera.bind('<Control-n>', self.new_document)
-        self.textaera.bind('<Control-o>', self.open_document)
-        self.textaera.bind('<Control-s>', self.save)
-        self.textaera.bind('<Control-Shift-s>', self.save_as)
-        self.textaera.bind('<Control-c>', self.copy)
-        self.textaera.bind('<Control-x>', self.cut)
-        self.textaera.bind('<Control-v>', self.paste)
-        self.textaera.bind('<Control-a>', self.selectAll)
+        self.textrea.bind('<Control-n>', self.new_document)
+        self.textrea.bind('<Control-o>', self.open_document)
+        self.textrea.bind('<Control-s>', self.save)
+        self.textrea.bind('<Control-Shift-s>', self.save_as)
+        self.textrea.bind('<Control-c>', self.copy)
+        self.textrea.bind('<Control-x>', self.cut)
+        self.textrea.bind('<Control-v>', self.paste)
+        self.textrea.bind('<Control-a>', self.selectAll)
 
 if __name__ == "__main__":
     master = Tk()
