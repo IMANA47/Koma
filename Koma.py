@@ -91,7 +91,7 @@ class Koma:
             self.save_as()
 
 
-
+    # Methode fermer document
     def close_document(self):
         if len(self.textrea.get(1.0, END+ '-1c')) > 0:
             save = messagebox.askyesno("Enrefistrer", "Voulez vous enregistrer votre document ?")
@@ -103,12 +103,21 @@ class Koma:
         else:
             self.textrea.quit()
 
+    #Methode copy
     def copy(self):
-        pass
+        self.textrea.event_generate("<<Copy>>")
+
+    # Methode coller
     def cut(self):
-        pass
+        self.textrea.event_generate("<<Cut>>")
+        # Methode paste
     def paste(self):
-        pass
+        self.textrea.event_generate("<<Paste>>")
+
+    def selectAll(self):
+        self.textrea.event_generate("<<SelectAll>>")
+
+
 
     def add_menu(self):
         barMenu = Menu(self.master)
@@ -133,6 +142,8 @@ class Koma:
         editionMenu.add_command(label="Couper",accelerator="Ctrl+X", command=self.cut)
         editionMenu.add_separator()
         editionMenu.add_command(label="Coller",accelerator="Ctrl+V", command=self.paste)
+        editionMenu.add_separator()
+        editionMenu.add_command(label="Selectionner tout",accelerator="Ctrl+A", command=self.selectAll)
         barMenu.add_cascade(label="Edition", menu=editionMenu)
 
         # Menu Aide
