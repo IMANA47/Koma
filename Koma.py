@@ -30,6 +30,9 @@ class Koma:
             if message_save > 0:
                 self.save()
         self.textrea.delete(1.0, END)
+        self.filename = None
+        self.set_title_window(self.filename)
+
 
 
     #Methode pour ouvrire document
@@ -54,6 +57,8 @@ class Koma:
                 fr = file.read()
                 file.close()
                 self.textrea.insert("1.0", fr)
+                self.set_title_window(self.filename)
+
 
             except Exception as e:
                 (messagebox.showerror("Ouvrir document", e))
@@ -79,6 +84,7 @@ class Koma:
                 f.write(content_file)
                 f.close()
                 self.filename = file
+                self.set_title_window(self.filename)
         except Exception as e:
             messagebox.showerror("Exception", e)
 
@@ -120,7 +126,11 @@ class Koma:
     def selectAll(self, *args):
         self.textrea.event_generate("<<SelectAll>>")
 
-
+    def set_title_window(self, name=None):
+        if name:
+            self.master.title(name + "Koma")
+        else:
+            self.master.title("Nouveau document - Koma")
 
     def add_menu(self, *args):
         barMenu = Menu(self.master)
