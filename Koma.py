@@ -21,14 +21,47 @@ class Koma:
 
     def new_document(self):
         pass
+
+    #Methode pour ouvrire document
     def open_document(self):
-        pass
+        if len(self.textrea.get(1.0, END+ '-1c')) >0:
+            message_save = messagebox.askyesno("Koma", "Voulez-vous enregistrer les modifications du document? " )
+
+            #Si il choisi oui
+            if message_save >0:
+                self.save()
+            self.textrea.delete(1.0, END)
+
+        self.filename = filedialog.askopenfilename(initialdir="/",title="Ouvrir un document",
+                                            defaultextension=".txt",
+                                            filetypes=[('Fichier texte', '*.txt'),('Script python', '*.py'),
+                                                       ('Fichier html', '*.html'),('Fichier javascript', '*.js'),
+                                                       ('Fichier css', '*.css'),('Fichier PhP', '*.php'),('Tous fichiers', '*.*')])
+
+        if self.filename:
+            try:
+                file = open(self.filename, 'r')
+                fr = file.read()
+                file.close()
+                self.textrea.insert("1.0", fr)
+
+            except Exception as e:
+                (messagebox.showerror("Ouvrir document", e))
+
+
+
+
+
+
+
 
     def save_as(self):
         try:
-            file = filedialog.asksaveasfile(initialdir="/",title="Enregistrer sous", initialfile="Koma", defaultextension=".txt", filetypes=[('Fichier texte', '*.txt'),('Script python', '*.py'),
-                                                                                                                                                       ('Fichier html', '*.html'),('Fichier javascript', '*.js'),
-                                                                                                                                                       ('Fichier css', '*.css'),('Fichier PhP', '*.php'),('Tous fichiers', '*.*')])
+            file = filedialog.asksaveasfile(initialdir="/",title="Enregistrer sous", initialfile="Koma",
+                                            defaultextension=".txt",
+                                            filetypes=[('Fichier texte', '*.txt'),('Script python', '*.py'),
+                                                       ('Fichier html', '*.html'),('Fichier javascript', '*.js'),
+                                                       ('Fichier css', '*.css'),('Fichier PhP', '*.php'),('Tous fichiers', '*.*')])
 
             content_file = self.textrea.get(1.0, END)
             if file:
