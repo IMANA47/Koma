@@ -19,13 +19,20 @@ class Koma:
         self.textrea.configure(yscrollcommand=self.scroll.set)
         self.scroll.pack(side=RIGHT, fill=Y)
 
+    # Methode pour ouvrire document
     def new_document(self):
-        pass
+        if len(self.textrea.get(1.0, END+ '-1c')) >0:
+            message_save = messagebox.askyesno("Koma", "L'editeur va quitter le document, voulez vous l'enregistrer ? " )
+
+            if message_save > 0:
+                self.save()
+        self.textrea.delete(1.0, END)
+
 
     #Methode pour ouvrire document
     def open_document(self):
         if len(self.textrea.get(1.0, END+ '-1c')) >0:
-            message_save = messagebox.askyesno("Koma", "Voulez-vous enregistrer les modifications du document? " )
+            message_save = messagebox.askyesno("Koma", "Voulez-vous enregistrer les modifications du document ? " )
 
             #Si il choisi oui
             if message_save >0:
