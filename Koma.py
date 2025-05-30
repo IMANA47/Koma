@@ -93,7 +93,15 @@ class Koma:
 
 
     def close_document(self):
-        pass
+        if len(self.textrea.get(1.0, END+ '-1c')) > 0:
+            save = messagebox.askyesno("Enrefistrer", "Voulez vous enregistrer votre document ?")
+            if save <=0:
+                self.textrea.quit()
+            else:
+                self.save()
+                self.textrea.quit()
+        else:
+            self.textrea.quit()
 
     def copy(self):
         pass
